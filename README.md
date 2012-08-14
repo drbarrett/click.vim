@@ -7,7 +7,7 @@ Changes include:
 - support for [XIA](http://xia.cs.cmu.edu) specific addresses and keywords. 
 
 Original syntax file notes:
-===========================
+---------------------------
 
 This is a mirror of http://www.vim.org/scripts/script.php?script_id=1065
 
