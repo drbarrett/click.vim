@@ -4,7 +4,9 @@
 " Vim syntax file
 " Language:    click
 " Maintainer:  Soeren Sonntag <soeren . sonntag AT web . de>
-" Last Change: 2004-08-24
+" Modified Dan Barrett <barrettd AT cs . cmu . edu>
+" Last Change: 2012-7-12
+" Changes: XIA specific highlighting, new keywords added
 " Description: click (http://www.pdos.lcs.mit.edu/click/) syntax file
 "---------------------------------------------------------------------
 
@@ -18,6 +20,8 @@ endif
 
 " match some keywords
 syn keyword     clickStatement  input output elementclass connectiontunnel
+syn keyword     clickStatement  Script Paint Paintswitch Queue Idle Discard Unqueue Print EtherEncap
+syn keyword     clickStatement  LinkUnqueue ControlSocket RandomSample
 syn match       clickStatement  /\zs\<require\ze\s*(/
 
 " match numbers
@@ -43,7 +47,8 @@ syn match       clickClass      /::\s*\zs\w\+\>\ze/
 syn region      clickString     start=/"/ skip=/\\"/ end=/"/
 
 " match comments
-syn keyword     clickTodo       Todo contained
+syn match       clickTodo       /TODO:/  contained
+syn match       clickTodo       /FIXME:/ contained
 syn match       clickComment    /\/\/.*/ contains=clickTodo
 syn region      clickComment    start=/\/\*/ end=/\*\// contains=clickTodo
 
@@ -51,6 +56,7 @@ syn region      clickComment    start=/\/\*/ end=/\*\// contains=clickTodo
 syn match       clickIP4        /\<\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\>/
 syn match       clickIP6        /\<\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}\>/
 syn match       clickEth        /\<\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}\>/
+syn match       clickXid        /\<\u\+:\x\{40}\>/
 
 
 " Define the default highlighting.
@@ -67,7 +73,7 @@ if version >= 508 || !exists("did_c_syn_inits")
   HiLink clickNumber            Number
   HiLink clickStatement         Statement
   HiLink clickComment           Comment
-  HiLink clickOperator          Operator 
+  HiLink clickOperator          Operator
   HiLink clickVariable          Type
   HiLink clickInstance          Type
   HiLink clickClass             Statement
@@ -79,6 +85,9 @@ if version >= 508 || !exists("did_c_syn_inits")
   HiLink clickIP6               Type
   HiLink clickEth               Type
   HiLink clickTodo              Todo
+  HiLink clickFixme             Todo
+
+  HiLink clickXid               Type
 
   delcommand HiLink
 endif
