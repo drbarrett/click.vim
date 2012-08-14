@@ -1,10 +1,11 @@
 click.vim
 ---------
+This is a fork of an existing vim click syntax file with added support for [XIA](http://xia.cs.cmu.edu) address types. 
+It can also be used with normal click configuration files.
 
-Vim syntax definition for click configuration files. 
 Changes include:
 - support for additional click keywords
-- support for [XIA](http://xia.cs.cmu.edu) specific addresses and keywords. 
+- support for XIA specific addresses and keywords. 
 
 Original syntax file notes:
 ---------------------------
