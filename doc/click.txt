@@ -14,20 +14,20 @@ This plugin provides syntax highlighting for configuration files for the
 Click Modular Router filetype. (*.click)
 (https://github.com/kohler/click)
 
-Optional support is also included for click configuration files specific to
-the eXpressive Internet Architecture (XIA) project.
+Optional support is also included for click configuration files specific
+to the eXpressive Internet Architecture (XIA) project.
 (https://github.com/XIA-Project/xia-core)
 
 ==============================================================================
 SETTINGS                                                      *click-settings*
 
-This plugin has a few variables you can define in your vimrc that change the
-behavior of the plugin.
+This plugin has a few variables you can define in your vimrc that change
+the behavior of the plugin.
 
                                                           *g:click_enable_xia*
 g:click_enable_xia~
-	Setting this option adds extra syntax highlighting used by the XIA click
-	configuration files. The default setting is 0. >
+	Setting this option adds extra syntax highlighting used by the
+	XIA click configuration files. The default setting is 0. >
 	    let g:click_enable_xia = 1
 <
 
