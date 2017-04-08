@@ -1,14 +1,16 @@
 "---------------------------------------------------------------------
-" $Id: click.vim,v 1.3 2004/08/24 09:53:26 soso Exp $
 "
 " Vim syntax file
 " Language:    click
 " Maintainer:  Soeren Sonntag <soeren . sonntag AT web . de>
 " Modified Dan Barrett <barrettd AT cs . cmu . edu>
-" Last Change: 2012-7-12
+" Last Change: 2017-4-8
 " Changes: XIA specific highlighting, new keywords added
 " Description: click (http://www.pdos.lcs.mit.edu/click/) syntax file
 "---------------------------------------------------------------------
+
+" disable XIA elements by default
+let g:click_enable_xia = 0
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded
@@ -19,10 +21,12 @@ elseif exists("b:current_syntax")
 endif
 
 " match some keywords
-syn keyword     clickStatement  input output elementclass connectiontunnel
-syn keyword     clickStatement  Script Paint Paintswitch Queue Idle Discard Unqueue Print EtherEncap
-syn keyword     clickStatement  LinkUnqueue ControlSocket RandomSample
+syn keyword     clickStatement  library define read write input output elementclass script
 syn match       clickStatement  /\zs\<require\ze\s*(/
+
+" match elements
+syn keyword     clickElement    Paint Paintswitch Queue Idle Discard Unqueue Print EtherEncap
+syn keyword     clickElement    LinkUnqueue ControlSocket RandomSample
 
 " match numbers
 syn match       clickNumber     /\<\d\+\>/
@@ -56,8 +60,16 @@ syn region      clickComment    start=/\/\*/ end=/\*\// contains=clickTodo
 syn match       clickIP4        /\<\d\{1,3}\.\d\{1,3}\.\d\{1,3}\.\d\{1,3}\>/
 syn match       clickIP6        /\<\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}:\x\{1,4}\>/
 syn match       clickEth        /\<\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}:\x\{1,2}\>/
-syn match       clickXid        /\<\u\+:\x\{40}\>/
 
+if g:click_enable_xia == 1
+	syn match   clickXiaXid     /\<\u\+:\x\{40}\>/
+	syn keyword clickXiaElement checkxiaheader fidrouteengine markxiaheader xarpquierier xarpresponder
+	syn keyword clickXiaElement xcmp xiachallengeresponder xiachallengesource
+	syn keyword clickXiaElement xiacheckdest xiacidfilter xiadechlim xiaipencap xianetjoin xianexthop
+	syn keyword clickXiaElement xiapaint xiapaintswitch xiaprint xiaselectpath xiaxidroutetable
+	syn keyword clickXiaElement xiaxidtypeclassifier xlog xnetj xtransport
+
+endif
 
 " Define the default highlighting.
 " For version 5.7 and earlier: only when not done already
@@ -74,6 +86,7 @@ if version >= 508 || !exists("did_c_syn_inits")
   HiLink clickStatement         Statement
   HiLink clickComment           Comment
   HiLink clickOperator          Operator
+  HiLink clickElement           Type
   HiLink clickVariable          Type
   HiLink clickInstance          Type
   HiLink clickClass             Statement
@@ -87,7 +100,10 @@ if version >= 508 || !exists("did_c_syn_inits")
   HiLink clickTodo              Todo
   HiLink clickFixme             Todo
 
-  HiLink clickXid               Type
+if g:click_enable_xia == 1
+  HiLink clickXiaXid            Type
+  Hilink clickXiaElement        Type
+endif
 
   delcommand HiLink
 endif
